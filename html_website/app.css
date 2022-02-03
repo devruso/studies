@@ -1,0 +1,14 @@
+h1{
+    color: cornflowerblue;
+}
+button{
+    color: blue;
+    background-color: greenyellow;
+}
+button:hover{
+    background-color: antiquewhite;
+    color: #f37878;
+}
+button:active{
+    background-color: #f37878;
+}
