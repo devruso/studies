@@ -12,12 +12,10 @@ const allLinks = document.querySelectorAll('a');
 // }
 
 const lis = document.querySelectorAll('li');
-let j = 0;
 for (let el of lis){
-    if(el[j].classList.contains('highlight') === true){
-        el[j].classLis.toggle('highlight');
+    if(el.classList.contains('highlight') === true){
+        el.classLis.toggle('highlight');
     }else{
-        el[j].classList.add('highlight');
+        el.classList.add('highlight');
     }
-    j++;
 }
