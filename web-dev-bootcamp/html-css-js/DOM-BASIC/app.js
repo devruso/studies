@@ -43,7 +43,7 @@ h1.insertAdjacentElement('afterend', h2);
 // for(let i =0; i<100;i++){
     
 //     const btn = document.createElement('button');
-//     btn.innerText='BUTAO XERECUDO'
+//     btn.innerText=''
 //     d.appendChild(btn)
     
 
