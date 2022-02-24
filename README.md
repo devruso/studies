@@ -5,5 +5,5 @@
 
 <br>
 
-><h3>**English version** Compilation of the code from courses that I'm doing throught time. </h3>
+><h3>**English version** Compilation of the codes from courses I'm doing over time. </h3>
 ><p> Currently learning web-development</p>
