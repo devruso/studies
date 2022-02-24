@@ -6,4 +6,4 @@
 <br>
 
 ><h3>**English version** Compilation of the code from courses that I'm doing throught time. </h3>
->><p> Currently learning web-development</p>
+><p> Currently learning web-development</p>
