@@ -1,6 +1,6 @@
 # Estudos / Studies
 
-<h2>Compilado dos códigos dos cursos que irei fazendo ao longo dos meus estudos. </h2>
+<h2>Compilado dos códigos dos cursos que estou fazendo ao longo dos meus estudos. </h2>
 <p>Atualmente com desenvolvimento web.</p>
 
 <br>
