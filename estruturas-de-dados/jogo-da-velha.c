@@ -12,8 +12,15 @@
 
 // print com a interface do jogo da velha
 
+typedef struct {
+    char arr[3][3];
+    char user1, user2;
+    
+}game;
+
 void printGame(char arr[3][3]){
 
+        printf("\n");
         for(int i = 0; i<3; i++){
             int ctrl = 0;
             for(int j=0; j<3; j++){
@@ -34,36 +41,45 @@ void printGame(char arr[3][3]){
 char generateGame(char arr[3][3]){
      for(int i = 0; i<3;i++){
         for(int j = 0; j<3; j++){
-            arr[i][j] = " ";
+            arr[i][j] = ' ';
         }
     }
     return arr[3][3];
 }
+
+int checkLexist(int l){
+    while(l>3 || l <0){
+        printf("Linha nao existe! Digite novamente.");
+        scanf("%c",&l);
+         
+    }
+}
+int checkCexist(int c){
+    while(c > 3 || c < 0){
+        printf("Coluna nao existe. Por favor digite novamente.");
+        scanf("%c", &c);
+    }
+}
+
 int main(){
     char arr[3][3], userChar;
     char userInput;
     int *userChoice[3][3],l,c;
-    generateGame(arr[3][3]);
+    generateGame(arr);
 // como fazer o jogador selecionar onde ele quer jogar
-    scanf(userInput);
-    printf("Onde deseja jogar?");
+    printf("Deseja comecar com X ou O?\n");
+    scanf("%c",&userInput);
+    printf("Onde deseja jogar?\n");
     printGame(arr);
-    printf("Para selecionar onde quer jogar, selecione a linha e coluna que quer jogar, de 1 a 3!");
-    
-    //mudar para funcao a selecao de linha e coluna. 
-    do{
-        scanf(l);
-        if(l>3 || l <0){
-        printf("Linha nao existe!");
-        }
-        }while(l>3 || l <0);
-    do{
-        scanf(c);
-        if(c > 3 || c < 0){
-        printf("Coluna nao existe!");
+    printf("Para selecionar onde quer jogar, selecione a linha e coluna que quer jogar, de 1 a 3\n");
+    scanf("%c",&l);
+    scanf("%c",&c);
 
-        }
-    }while(c > 3 || c < 0);
+    checkLexist(l);
+
+    checkCexist(c);
+    
+    
 
 
 }
