@@ -18,6 +18,7 @@ typedef struct {
     
 }game;
 
+// Printa o jogo
 void printGame(char arr[3][3]){
 
         printf("\n");
@@ -38,6 +39,7 @@ void printGame(char arr[3][3]){
     }  
 }
 
+//Inicia a array com espacos vazios
 char generateGame(char arr[3][3]){
      for(int i = 0; i<3;i++){
         for(int j = 0; j<3; j++){
@@ -47,39 +49,61 @@ char generateGame(char arr[3][3]){
     return arr[3][3];
 }
 
-int checkLexist(int l){
-    while(l>3 || l <0){
-        printf("Linha nao existe! Digite novamente.");
+// Modificar para somente uma funcao para checar a existencia das linhas e colunas
+int checkExistance(int l){
+    if(l>3 || l <0){
+        printf("Linha nao existe! Digite novamente.\n");
         scanf("%c",&l);
          
     }
+    return l;
 }
 int checkCexist(int c){
-    while(c > 3 || c < 0){
-        printf("Coluna nao existe. Por favor digite novamente.");
+    if(c > 3 || c < 0){
+        printf("Coluna nao existe. Por favor digite novamente.\n");
         scanf("%c", &c);
     }
+    return c;
 }
 
+// Verificar se opcao escolhida ja tem algo
+int verifyOpt(char arr[3][3],int a, int b){
+    if(arr[a][b] != ' '){
+        printf("Opcao ja escolhida.\n");
+    }
+     
+}
+
+// Marca a opcao escolhida com X ou O
+
+char selectedOpt(char arr[3][3], int a, int b){
+    arr[a][b] = 'x'; 
+    
+}
+
+////////////////////////////////////
 int main(){
     char arr[3][3], userChar;
     char userInput;
-    int *userChoice[3][3],l,c;
+    int *userChoice[3][3],l,c,*pL,*pC;
     generateGame(arr);
+
 // como fazer o jogador selecionar onde ele quer jogar
-    printf("Deseja comecar com X ou O?\n");
-    scanf("%c",&userInput);
-    printf("Onde deseja jogar?\n");
-    printGame(arr);
-    printf("Para selecionar onde quer jogar, selecione a linha e coluna que quer jogar, de 1 a 3\n");
-    scanf("%c",&l);
-    scanf("%c",&c);
-
-    checkLexist(l);
-
-    checkCexist(c);
+    do{
+        int usuario = 0;
+        int win = 0;
+        printGame(arr);
+        printf("Selecione a linha e coluna que quer jogar, de 1 a 3 \n");
+        scanf("%d%d", &l,&c);
+        if(usuario == 0){
+            arr[l-1][c-1] = 'X';
+            usuario = 1; 
+        }else{
+            arr[l-1][c-1] = 'O';
+            usuario = 0;
+        }
+        
+    }while(l< 0 || l > 2 || c < 0 || c>2 || arr[3][3] != ' ');
     
-    
-
 
 }
