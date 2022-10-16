@@ -2,27 +2,13 @@
 #include <stdio.h>
 #include <string.h>
 
-// jogo da velha ->  vetor com os elementos,
-// os elementos encadeados vao ter ' ', trocando para X ou O
-// precisa de input para a jogada 
-// como fazer o jogador selecionar onde ele quer jogar
-
-// vitoria com variavel de controle
-
-
-// print com a interface do jogo da velha
-
-typedef struct {
-    char arr[3][3];
-    char user1, user2;
-    
-}game;
-
 // Printa o jogo
 void printGame(char arr[3][3]){
 
-        printf("\n");
+        printf("\n\n");
         for(int i = 0; i<3; i++){
+        printf("\t");
+
             int ctrl = 0;
             for(int j=0; j<3; j++){
                printf("%c", arr[i][j]);
@@ -31,9 +17,9 @@ void printGame(char arr[3][3]){
                }
                ctrl++;
         }       
-        printf("\n");
+        printf("\t\n");
         if(i<2){
-            printf("----------");
+            printf("\t----------");
         }
         printf("\n");   
     }  
@@ -48,62 +34,56 @@ char generateGame(char arr[3][3]){
     }
     return arr[3][3];
 }
+/*
+    Para verificar a vitoria vai percorrer todo a matriz checando os indices
+    ao checar os indices vou armazenar a condicao de vitoria
+    podendo ser na diagonal, vertical ou horizontal
+    entao ao percorrer a linha e matrizes comparo os caracteres
+*/
+int verifyWin(char jogo[3][3],int a, int b){
+    int WinCondition1 = 0, WinCondition2 = 0;
+    for(int i = 0; i<3;i++){
+        for(int j = 0; j<3; j++){
+            if(jogo[i][j] == 'X'){
+                WinCondition1++;
+            }else if(jogo[i][j] == 'O'){
+                b++;
+            }
 
-// Modificar para somente uma funcao para checar a existencia das linhas e colunas
-int checkExistance(int l){
-    if(l>3 || l <0){
-        printf("Linha nao existe! Digite novamente.\n");
-        scanf("%c",&l);
-         
+        }
     }
-    return l;
-}
-int checkCexist(int c){
-    if(c > 3 || c < 0){
-        printf("Coluna nao existe. Por favor digite novamente.\n");
-        scanf("%c", &c);
-    }
-    return c;
-}
-
-// Verificar se opcao escolhida ja tem algo
-int verifyOpt(char arr[3][3],int a, int b){
-    if(arr[a][b] != ' '){
-        printf("Opcao ja escolhida.\n");
-    }
-     
-}
-
-// Marca a opcao escolhida com X ou O
-
-char selectedOpt(char arr[3][3], int a, int b){
-    arr[a][b] = 'x'; 
-    
 }
 
 ////////////////////////////////////
 int main(){
     char arr[3][3], userChar;
     char userInput;
-    int *userChoice[3][3],l,c,*pL,*pC;
+    int win = 0, player=0;
+    int l,c,xWin=0,oWin=0;
     generateGame(arr);
 
-// como fazer o jogador selecionar onde ele quer jogar
     do{
-        int usuario = 0;
-        int win = 0;
         printGame(arr);
         printf("Selecione a linha e coluna que quer jogar, de 1 a 3 \n");
         scanf("%d%d", &l,&c);
-        if(usuario == 0){
+
+        if(player == 0){
             arr[l-1][c-1] = 'X';
-            usuario = 1; 
-        }else{
-            arr[l-1][c-1] = 'O';
-            usuario = 0;
+            player++;
+            xWin++;
+
+        }    
+        else{
+            arr[l-1][c-1] = 'O';    
+            player--;
+            oWin++; 
         }
-        
-    }while(l< 0 || l > 2 || c < 0 || c>2 || arr[3][3] != ' ');
-    
+        if( xWin == 3 || oWin == 3 || xWin == 6 || oWin == 6 || xWin == 9 || oWin == 9 || xWin == 12 || oWin == 12){
+                verifyWin(arr[3][3],xWin, oWin);
+
+        }
+}while(l< 0 || l > 2 || c < 0 || c>2 || arr[3][3] != ' ');
+
+
 
 }
