@@ -34,24 +34,64 @@ char generateGame(char arr[3][3]){
     }
     return arr[3][3];
 }
-/*
-    Para verificar a vitoria vai percorrer todo a matriz checando os indices
-    ao checar os indices vou armazenar a condicao de vitoria
-    podendo ser na diagonal, vertical ou horizontal
-    entao ao percorrer a linha e matrizes comparo os caracteres
-*/
-int verifyWin(char jogo[3][3],int a, int b){
-    int WinCondition1 = 0, WinCondition2 = 0;
-    for(int i = 0; i<3;i++){
-        for(int j = 0; j<3; j++){
-            if(jogo[i][j] == 'X'){
-                WinCondition1++;
-            }else if(jogo[i][j] == 'O'){
-                b++;
+////////////////////////////////////
+
+int verifyWin(char jogo[3][3]){
+    int winCondition1 = 0, winCondition2 = 0;
+
+        // Verifica se a primeira linha for X, a linha, a coluna e a diagonal principal
+         if(jogo[1][1]=='X'){
+
+                if(jogo[1][2]=='X' && jogo[1][3]=='X'){
+                        winCondition1++;
+                    }
+                    if(jogo[2][1]=='X' && jogo[3][1]=='X'){
+                            winCondition1++;
+                    }
+        }
+
+        // Verifica quando o primeiro termo e 'O' a linha, coluna
+            if(jogo[1][1]=='O'){
+
+                if(jogo[1][2]=='O' && jogo[1][3]=='O'){
+                        winCondition2++;
+                    }
+                    if(jogo[2][1]=='O' && jogo[3][1]=='O'){
+                            winCondition2++;
+                        }
+            }
+        //Checa quando ultima linha igual X    
+            if(jogo[3][3]=='X'){
+                if(jogo[3][2]=='X' && jogo[3][3]=='X'){
+                    winCondition1++;
+                }
+                if(jogo[2][3]=='X' && jogo[1][3]=='X'){
+                    winCondition1++;
+                }
+            }
+        // Checa quando ultima linha igual O
+
+            if(jogo[3][3]=='O'){
+                if(jogo[3][2]=='O' && jogo[3][3]=='O'){
+                    winCondition2++;
+                }
+                if(jogo[2][3]=='O' && jogo[1][3]=='O'){
+                    winCondition2++;
+                }
+            }            
+
+            if(jogo[2][2] == 'X'){
+                if(jogo[2][1]== 'X' && jogo[2][3]=='X' || jogo[1][1]=='X' && jogo[3][3]=='X' || jogo[1][2]=='X'&& jogo[3][2]=='X' || jogo[1][3]=='X'&&jogo[3][1]=='X'){
+                        winCondition1++;
+                }
+            }
+            if(jogo[2][2] == 'O'){
+                if(jogo[2][1]== 'O' && jogo[2][3]=='O' || jogo[1][1]=='O' && jogo[3][3]=='O' || jogo[1][2]=='O'&& jogo[3][2]=='O' || jogo[1][3]=='O'&&jogo[3][1]=='O'){
+                        winCondition2++;
+                }
             }
 
-        }
-    }
+    
 }
 
 ////////////////////////////////////
@@ -78,12 +118,10 @@ int main(){
             player--;
             oWin++; 
         }
-        if( xWin == 3 || oWin == 3 || xWin == 6 || oWin == 6 || xWin == 9 || oWin == 9 || xWin == 12 || oWin == 12){
-                verifyWin(arr[3][3],xWin, oWin);
+        if(xWin >= 3 && oWin >= 3){
+                verifyWin(arr[3][3]);
 
         }
 }while(l< 0 || l > 2 || c < 0 || c>2 || arr[3][3] != ' ');
-
-
 
 }
