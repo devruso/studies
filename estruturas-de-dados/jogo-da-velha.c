@@ -15,7 +15,7 @@ void printGame(char arr[3][3]){
                if(ctrl < 2){
                 printf(" | ");
                }
-               ctrl++;
+               ctrl++; 
         }       
         printf("\t\n");
         if(i<2){
@@ -37,7 +37,7 @@ char generateGame(char arr[3][3]){
 ////////////////////////////////////
 
 int verifyWin(char jogo[3][3]){
-    int winCondition1 = 0, winCondition2 = 0;
+    int winCondition1 = 0, winCondition2 = 1;
 
         // Verifica se a primeira linha for X, a linha, a coluna e a diagonal principal
          if(jogo[1][1]=='X'){
@@ -101,22 +101,26 @@ int main(){
     int win = 0, player=0;
     int l,c,xWin=0,oWin=0;
     generateGame(arr);
-
+    int existingChar;
     do{
         printGame(arr);
         printf("Selecione a linha e coluna que quer jogar, de 1 a 3 \n");
         scanf("%d%d", &l,&c);
-
-        if(player == 0){
-            arr[l-1][c-1] = 'X';
-            player++;
-            xWin++;
-
+        
+        int existingChar = strcmp(arr[l-1][c-1],' ');
+        
+        if(player == 0 && existingChar == 0){
+                arr[l-1][c-1] = 'X';
+                player++;
+                xWin++;
         }    
-        else{
-            arr[l-1][c-1] = 'O';    
-            player--;
-            oWin++; 
+        else if(player == 1){
+                if(existingChar = 0){
+                arr[l-1][c-1] = 'O';
+                player--;
+                oWin++;
+            }
+           
         }
         if(xWin >= 3 && oWin >= 3){
                 verifyWin(arr[3][3]);
