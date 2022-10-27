@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 /*
-construir um labirinto que tem recebe 1 matriz nxm
-apos a insercao da matriz, percorrer cada célula para verificar
-possiveis caminhos. se a celula (i,j) = 0, trava se for (i,j)=1
-e possivel
+Lembrando o exercício (labirinto): Há um labirinto, representado por uma matriz n por m. Cada célula (x,y) da matriz pode ser 1 (livre) ou 0 (ocupada). Dada uma posição origem (xo,yo) e uma posição destino (xd,yd), construa uma função verifLab(int L[][], int n, int m, point_t o, point_t d) que recebe o labirinto L, com n linhas e m colunas, e determina se há um caminho no labirinto de o:(xo,yo) a d:(xd,yd).
 */
 typedef struct point point_t;
 typedef enum {FALSE,TRUE} bool;
@@ -16,8 +13,8 @@ typedef struct cell cell_t;
 typedef struct stk stk_t;
 
 struct stk{
-    unsigned int top,maxsize;
-    element_t *svector;
+    unsigned int maxsize,top;
+    point_t *svector;
 };
 
 struct cell{
@@ -41,15 +38,17 @@ int B[4][4] ={
     1,0,0,0,
     1,1,1,0
 };
-int findPath(int a, int b, int X[a][b]){
+int verifyLab(int a, int b, int X[a][b], point_t o, point_t d){
     stk_t *stk;
     point_t *p;
-    int n = a * b ;   
-
-    stk_t *s = newStack(n);
+    int n = a * b ;  
+    newStack(n);
+    if(o.x == 1 && o.y == 1){
+        //push(o, stk);
+    }
 
 }
-// criando uma pilha com vetor e coluna
+// criando uma pilha 
 stk_t *newStack(unsigned int n){
 
     stk_t *p = (stk_t *)malloc(sizeof(element_t));
@@ -67,7 +66,7 @@ stk_t *newStack(unsigned int n){
 }
 
 bool isempty(stk_t *s){
-    return(s->top ==0);
+    return(s->top == 0);
 }
 
 bool isfull(stk_t *s){
@@ -75,19 +74,19 @@ bool isfull(stk_t *s){
 }
 
 //pushing in a vector
-bool push(element_t e, stk_t *s){
+bool push(stk_t *s, point_t xy){
     if(isfull(s)) return FALSE;
-
-    s->svector[s->top] = e;
+    point_t *p;
+    s->svector[s->top] = xy;
     s->top++;
     return TRUE;
 }
 
-element_t pop(stk_t *s){
+point_t pop(stk_t *s){
 
     if(isempty(s)) return NULL;
 
-    element_t e = s ->svector[s->top];
+    point_t e = s ->svector[s->top];
     s-> top--;
     return(e);
 }
