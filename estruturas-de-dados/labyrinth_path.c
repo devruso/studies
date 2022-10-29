@@ -17,10 +17,6 @@ struct stk{
     point_t *svector;
 };
 
-struct cell{
-    element_t element;
-    cell_t *next;
-};
 struct point{
     int x;
     int y;
@@ -35,19 +31,10 @@ int A[3][3] = {
 int B[4][4] ={
     0,0,0,1,
     1,1,1,1,
-    1,0,0,0,
+    1,0,0,1,
     1,1,1,0
 };
-int verifyLab(int a, int b, int X[a][b], point_t o, point_t d){
-    stk_t *stk;
-    point_t *p;
-    int n = a * b ;  
-    newStack(n);
-    if(o.x == 1 && o.y == 1){
-        //push(o, stk);
-    }
 
-}
 // criando uma pilha 
 stk_t *newStack(unsigned int n){
 
@@ -76,7 +63,6 @@ bool isfull(stk_t *s){
 //pushing in a vector
 bool push(stk_t *s, point_t xy){
     if(isfull(s)) return FALSE;
-    point_t *p;
     s->svector[s->top] = xy;
     s->top++;
     return TRUE;
@@ -84,13 +70,68 @@ bool push(stk_t *s, point_t xy){
 
 point_t pop(stk_t *s){
 
-    if(isempty(s)) return NULL;
+  //  if(isempty(s)) return NULL;
 
     point_t e = s ->svector[s->top];
     s-> top--;
     return(e);
 }
-int main(){
 
+stk_t verifyLab(int a, int b, int X[a][b], point_t o, point_t d){
+    stk_t *stk;
+    point_t p;
+    int n = a * b ;  
+    stk = newStack(n);
+    int i= o.x,j= o.y;
+    int count = 0;
+    push(stk,o);
+    while(p.x != d.x && p.y != d.y){
+        X[i][j] = 2;
+        if(X[i+1][j]== 1){
+                p.x = i+1;
+                p.y = j;
+                push(stk, p);
+                X[i][j] = 2;
+                i++;
+                count++;
+            }
+            else if (X[i-1][j]==1){
+                p.x = i-1;
+                p.y = j;
+                push(stk,p);
+                X[i][j] = 2;
+                i--;
+                count++;
+            }
+            else if(X[i][j+1]==1){
+                p.x = i;
+                p.y = j+1;
+                push(stk,p);
+                X[i][j] = 2;
+                j++;
+                count++;
+            }
+             else if (X[i][j-1]==1){
+                p.x = i;
+                p.y = j-1;
+                push(stk,p);
+                X[i][j] = 2;
+                j--;
+                count++;
+            }
+            else{
+                if(X[i][j] == 2){
+                    X[i][j] = -1;
+                    pop(stk);
+                    count--;
+                }
+            }
+    }
+                printf("%d ",count); 
+}
+int main(){
+    point_t origem, destino;
+    origem.x = 3, origem.y= 2, destino.x=2,destino.y=3;
+    verifyLab(4,4,B,origem,destino);
     return printf("funcionando");
 }
