@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-/*
-Lembrando o exercício (labirinto): Há um labirinto, representado por uma matriz n por m. Cada célula (x,y) da matriz pode ser 1 (livre) ou 0 (ocupada). Dada uma posição origem (xo,yo) e uma posição destino (xd,yd), construa uma função verifLab(int L[][], int n, int m, point_t o, point_t d) que recebe o labirinto L, com n linhas e m colunas, e determina se há um caminho no labirinto de o:(xo,yo) a d:(xd,yd).
-*/
+
 typedef struct point point_t;
 typedef enum {FALSE,TRUE} bool;
 typedef int* element_t; // elementos como ponteiros
@@ -20,19 +18,6 @@ struct stk{
 struct point{
     int x;
     int y;
-};
-
-int A[3][3] = {
-    1,1,1,
-    1,0,1,
-    0,1,1
-};
-
-int B[4][4] ={
-    0,0,0,1,
-    1,1,1,1,
-    1,0,0,1,
-    1,1,1,0
 };
 
 // criando uma pilha 
@@ -70,7 +55,7 @@ bool push(stk_t *s, point_t xy){
 
 point_t pop(stk_t *s){
 
-  //  if(isempty(s)) return NULL;
+   // if(isempty(s)) return NULL;
 
     point_t e = s ->svector[s->top];
     s-> top--;
@@ -83,55 +68,71 @@ stk_t verifyLab(int a, int b, int X[a][b], point_t o, point_t d){
     int n = a * b ;  
     stk = newStack(n);
     int i= o.x,j= o.y;
-    int count = 0;
     push(stk,o);
-    while(p.x != d.x && p.y != d.y){
-        X[i][j] = 2;
-        if(X[i+1][j]== 1){
+    while(i != d.x && j != d.y){
+        // iniciar a coordenada atual com valor = 2, para saber qual caminho foi percorrido
+        X[i][j]=2;
+        if(X[i+1][j] == 1 && i+1<a){
                 p.x = i+1;
                 p.y = j;
                 push(stk, p);
                 X[i][j] = 2;
                 i++;
-                count++;
-            }
-            else if (X[i-1][j]==1){
+            }else if (X[i-1][j]==1 && i-1>a){
                 p.x = i-1;
                 p.y = j;
                 push(stk,p);
                 X[i][j] = 2;
                 i--;
-                count++;
-            }
-            else if(X[i][j+1]==1){
+            }else if(X[i][j+1]==1 && j+1<b){
                 p.x = i;
                 p.y = j+1;
                 push(stk,p);
                 X[i][j] = 2;
                 j++;
-                count++;
-            }
-             else if (X[i][j-1]==1){
+            }else if (X[i][j-1]==1 && j-1>b){
                 p.x = i;
                 p.y = j-1;
                 push(stk,p);
                 X[i][j] = 2;
                 j--;
-                count++;
-            }
-            else{
-                if(X[i][j] == 2){
+            }else{
+                if(X[i][j]== 2){
                     X[i][j] = -1;
                     pop(stk);
-                    count--;
+                    if(isempty(stk) == TRUE){
+                        break;
+                    }
                 }
             }
     }
-                printf("%d ",count); 
+    if(!isempty(stk)){
+            printf("Ha caminho disponivel!");
+
+    }else{
+        printf("Nao ha caminho disponivel :(");
+    }
+    return *stk;
 }
+
+int A[3][4] = {
+    1,1,1,1,
+    0,0,1,1,
+    0,1,1,0
+};
+
+int B[4][4] = {
+    0,0,0,1,
+    1,1,1,1,
+    1,0,0,1,
+    1,1,1,0
+};
+
 int main(){
     point_t origem, destino;
-    origem.x = 3, origem.y= 2, destino.x=2,destino.y=3;
+    origem.x = 0, origem.y= 3, destino.x=3,destino.y=2;
     verifyLab(4,4,B,origem,destino);
-    return printf("funcionando");
+    
+    return 0;
 }
+
