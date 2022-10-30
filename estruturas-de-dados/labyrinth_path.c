@@ -70,40 +70,45 @@ stk_t verifyLab(int a, int b, int X[a][b], point_t o, point_t d){
     int i= o.x,j= o.y;
     push(stk,o);
     while(i != d.x && j != d.y){
-        // iniciar a coordenada atual com valor = 2, para saber qual caminho foi percorrido
-        X[i][j]=2;
-        if(X[i+1][j] == 1 && i+1<a){
+        // iniciar a coordenada atual com valor = 2, para saber qual caminho foi percorrido       
+            X[i][j]=2;
+        if(X[i+1][j] == 1 && i+1 < a){
                 p.x = i+1;
                 p.y = j;
                 push(stk, p);
                 X[i][j] = 2;
                 i++;
-            }else if (X[i-1][j]==1 && i-1>a){
+            }else if (X[i-1][j] == 1 && i-1 > a){
                 p.x = i-1;
                 p.y = j;
                 push(stk,p);
                 X[i][j] = 2;
                 i--;
-            }else if(X[i][j+1]==1 && j+1<b){
+            }else if(X[i][j+1] == 1 && j+1 < b){
                 p.x = i;
                 p.y = j+1;
                 push(stk,p);
                 X[i][j] = 2;
                 j++;
-            }else if (X[i][j-1]==1 && j-1>b){
+            }else if (X[i][j-1] == 1 && j-1 > b){
                 p.x = i;
                 p.y = j-1;
                 push(stk,p);
                 X[i][j] = 2;
                 j--;
             }else{
+            //  Caso nao haja caminho disponivel, atualiza o ponto atual para -1
+            //  Volta a linha e a coluna a para a posicao anterior a do topo
+            //  No final retira o elemento
                 if(X[i][j]== 2){
                     X[i][j] = -1;
+                    i = stk->svector[stk->top-1].x;
+                    j = stk->svector[stk->top-1].y;
                     pop(stk);
-                    if(isempty(stk) == TRUE){
+                }
+                if(isempty(stk) == TRUE){
                         break;
                     }
-                }
             }
     }
     if(!isempty(stk)){
@@ -130,8 +135,8 @@ int B[4][4] = {
 
 int main(){
     point_t origem, destino;
-    origem.x = 0, origem.y= 3, destino.x=3,destino.y=2;
-    verifyLab(4,4,B,origem,destino);
+    origem.x = 0, origem.y= 0, destino.x=2,destino.y=1;
+    verifyLab(3,4,A,origem,destino);
     
     return 0;
 }
